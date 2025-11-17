@@ -1,18 +1,25 @@
 {
   "name": "condata-aai-chatbot",
   "main": "index.js",
-  "compatibility_date": "2024-11-10",
+  "compatibility_date": "2025-01-01",
+
+  "vars": {
+    "OPENAI_API_URL": "https://api.openai.com/v1/responses"
+  },
 
   "observability": {
     "enabled": true,
+    "head_sampling_rate": 1,
     "logs": {
       "enabled": true,
+      "head_sampling_rate": 1,
       "persist": true,
       "invocation_logs": true
     },
     "traces": {
       "enabled": false,
-      "persist": true
+      "persist": true,
+      "head_sampling_rate": 1
     }
   }
 }

@@ -1,85 +1,56 @@
 /**
- * ================================================================
- * Description:
- * UI logic for the condata AAI chatbot.
- * - Opens/closes widget
- * - Manages WebSocket connection
- * - Sends/receives chat messages
- * ================================================================
+ * Frontend chat widget connecting to Cloudflare Worker WebSocket endpoint.
  */
 
-let socketReady = false;
+let socket;
 
-// --- UI Logic ----------------------------------------------------
-
-const launcher = document.getElementById("chatbot-launcher");
-const chatPanel = document.getElementById("chat-panel");
-const closeBtn = document.getElementById("close-chat");
-
-launcher.addEventListener("click", () => {
-    chatPanel.classList.remove("hidden");
-});
-
-closeBtn.addEventListener("click", () => {
-    chatPanel.classList.add("hidden");
-});
-
-// --- WebSocket Connection ----------------------------------------
-
-const socket = new WebSocket("wss://condata-aai-chatbot.still-butterfly-bbff.workers.dev");
-socket.addEventListener("open", () => {
-    socketReady = true;
-    appendAssistantMessage("Connected to condata AAI Worker.");
-});
-
-socket.addEventListener("message", (event) => {
-    appendAssistantMessage(event.data);
-});
-
-// --- Sending Messages --------------------------------------------
-
-const input = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-btn");
-
-sendBtn.addEventListener("click", () => {
-    sendUserMessage();
-});
-
-input.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") sendUserMessage();
-});
-
+/**
+ * Sends a message to the Worker WebSocket.
+ */
 function sendUserMessage() {
-    const text = input.value.trim();
-    if (!text) return;
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (!text || !socket || socket.readyState !== WebSocket.OPEN) return;
 
-    // prevent sending before socket is ready
-    if (!socketReady || socket.readyState !== WebSocket.OPEN) {
-        appendAssistantMessage("Connection is not ready yet. Please wait a moment.");
-        return;
+  socket.send(JSON.stringify({ type: "user_message", text }));
+  addMessageBubble("user", text);
+
+  input.value = "";
+}
+
+/**
+ * Adds message to UI.
+ */
+function addMessageBubble(sender, text) {
+  const chat = document.getElementById("chatMessages");
+  const bubble = document.createElement("div");
+  bubble.className = sender === "user" ? "bubble user" : "bubble ai";
+  bubble.textContent = text;
+  chat.appendChild(bubble);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+/**
+ * Initializes the WebSocket connection to the Worker.
+ */
+function connectWS() {
+  socket = new WebSocket("wss://condata-aai-chatbot.still-butterfly-bbff.workers.dev");
+
+  socket.addEventListener("open", () => {
+    addMessageBubble("system", "Connected to condata AAI Worker.");
+  });
+
+  socket.addEventListener("message", (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.type === "assistant_delta") {
+      addMessageBubble("ai", data.text);
     }
-
-    appendUserMessage(text);
-    socket.send(JSON.stringify({ type: "user_message", text }));
-    input.value = "";
+    if (data.type === "assistant_message") {
+      addMessageBubble("ai", data.text);
+    }
+  });
 }
 
-// --- Rendering ----------------------------------------------------
-
-const messages = document.getElementById("chat-messages");
-
-function appendUserMessage(text) {
-    const div = document.createElement("div");
-    div.classList.add("message", "user");
-    div.textContent = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-}
-
-function appendAssistantMessage(text) {
-    const div = document.createElement("div");
-    div.classList.add("message", "assistant");
-    div.textContent = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-}
+window.addEventListener("load", connectWS);
+window.sendUserMessage = sendUserMessage;

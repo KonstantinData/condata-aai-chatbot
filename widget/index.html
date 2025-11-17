@@ -1,56 +1,22 @@
-<!--
-===============================================================
-Description:
-This is the frontend entry point for the condata AAI Chatbot.
-It contains:
-- A modern floating widget button
-- A chat panel that can open/close
-- A microphone button visibly available from the start
-- A text input field
-- References to script.js and styles.css
-
-This file does NOT contain microphone or AI logic yet.
-===============================================================
--->
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>condata AAI Chatbot</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>condata AAI Assistant</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-    <!-- Floating Chat Widget Button -->
-    <div id="chatbot-launcher">
-        <div class="pulse-circle"></div>
-        <span class="mic-icon">🎤</span>
-    </div>
+<div id="chatWidget">
+  <div id="chatHeader">condata AAI Assistant</div>
+  <div id="chatMessages"></div>
 
-    <!-- Chat Panel -->
-    <div id="chat-panel" class="hidden">
+  <div id="chatInputRow">
+    <input id="userInput" placeholder="Type your message…" />
+    <button onclick="sendUserMessage()">➤</button>
+  </div>
+</div>
 
-        <div id="chat-header">
-            <span>condata AAI Assistant</span>
-            <button id="close-chat">✕</button>
-        </div>
-
-        <div id="chat-messages"></div>
-
-        <!-- Input Area -->
-        <div id="chat-input-area">
-            <button id="mic-button">🎤</button>
-            <input
-                id="chat-input"
-                type="text"
-                placeholder="Type your message or use the microphone…">
-            <button id="send-btn">➤</button>
-        </div>
-
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
