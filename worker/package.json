@@ -1,0 +1,12 @@
+{
+  "name": "condata-aai-worker",
+  "version": "1.0.0",
+
+  "description": "Cloudflare Worker responsible for proxying WebSocket connections to the OpenAI Realtime API and managing secure tool calls such as HubSpot and email actions.",
+
+  "type": "module",
+
+  "dependencies": {
+    "ws": "8.16.0"
+  }
+}
