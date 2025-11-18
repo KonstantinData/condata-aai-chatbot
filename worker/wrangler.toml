@@ -1,21 +1,26 @@
 name = "condata-aai-chatbot"
 main = "index.js"
 compatibility_date = "2024-11-01"
-compatibility_flags = ["websocket", "websocket_connect"]
+compatibility_flags = ["nodejs_compat"]
 
 [vars]
-OPENAI_API_URL = "wss://api.openai.com/v1/realtime?model=gpt-4o-mini-realtime"
+OPENAI_API_URL = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
 
 [observability]
 enabled = true
+head_sampling_rate = 1
 
 [observability.logs]
 enabled = true
-invocation_logs = true
-persist = true
 head_sampling_rate = 1
+persist = true
+invocation_logs = true
 
 [observability.traces]
-enabled = true
+enabled = false
 persist = true
-head_sampling_rate = 1
+head_sampling_rate = 0

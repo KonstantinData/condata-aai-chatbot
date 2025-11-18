@@ -1,0 +1,306 @@
+/* condata AAI-Chatbot – floating widget styles */
+
+/* Brand palette (aligned with condata main site) :contentReference[oaicite:7]{index=7} */
+:root {
+  --condata-blue: #236597;
+  --condata-green: #3d9453;
+  --condata-dark: #1f2937;
+  --condata-light: #f8f9fb;
+  --condata-border: #e5e7eb;
+  --condata-radius-lg: 18px;
+  --condata-radius-sm: 12px;
+  --condata-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  --condata-transition: 0.2s ease;
+  --condata-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--condata-font);
+  background: transparent;
+}
+
+/* Root container and general layout */
+
+ .condata-chat-root {
+  position: fixed;
+  inset-block-end: 80px; /* statt 20px: höher über dem Rand */
+  inset-inline-end: 20px;
+  z-index: 9999;
+  font-family: var(--condata-font);
+}
+
+.condata-chat-window {
+  position: fixed;
+  inset-block-end: 80px; /* gleiche Höhe wie Root */
+  inset-inline-end: 20px;
+  ...
+}
+
+
+/* Collapsed launcher */
+
+.condata-chat-launcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    var(--condata-blue),
+    var(--condata-green)
+  );
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--condata-shadow);
+  transition: transform var(--condata-transition),
+    box-shadow var(--condata-transition), opacity var(--condata-transition);
+}
+
+.condata-chat-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.3);
+}
+
+.condata-chat-launcher-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 2px;
+}
+
+.condata-chat-launcher-label {
+  white-space: nowrap;
+}
+
+/* Expanded chat window */
+
+.condata-chat-window {
+  position: fixed;
+  inset-block-end: 20px;
+  inset-inline-end: 20px;
+  width: min(380px, 95vw);
+  height: 720px;
+  background: #ffffff;
+  border-radius: var(--condata-radius-lg);
+  box-shadow: var(--condata-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+  transition: opacity var(--condata-transition),
+    transform var(--condata-transition);
+}
+
+/* When open */
+
+.condata-chat-root.is-open .condata-chat-window {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.condata-chat-root.is-open .condata-chat-launcher {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header */
+
+.condata-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--condata-dark);
+  color: #f9fafb;
+}
+
+.condata-chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.condata-chat-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 3px;
+}
+
+.condata-chat-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.condata-chat-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.condata-chat-subtitle {
+  font-size: 11px;
+  color: #d1d5db;
+}
+
+.condata-chat-close {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 999px;
+  transition: background var(--condata-transition), color var(--condata-transition);
+}
+
+.condata-chat-close:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: #ffffff;
+}
+
+/* Disclaimer */
+
+.condata-chat-disclaimer {
+  padding: 8px 12px;
+  font-size: 11px;
+  background: var(--condata-light);
+  color: #4b5563;
+  border-bottom: 1px solid var(--condata-border);
+}
+
+/* Messages */
+
+.condata-chat-messages {
+  flex: 1;
+  padding: 10px 12px 12px;
+  overflow-y: auto;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Message bubbles */
+
+.condata-msg {
+  max-width: 85%;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.condata-msg.user {
+  margin-left: auto;
+  background: #ffffff;
+  border: 1px solid var(--condata-border);
+}
+
+.condata-msg.ai {
+  margin-right: auto;
+  background: #e0ecf6;
+  border: 1px solid #c4ddf5;
+}
+
+.condata-msg.system {
+  margin: 0 auto;
+  color: #6b7280;
+  font-size: 11px;
+  background: transparent;
+  border: none;
+  padding: 2px;
+}
+
+/* Input bar */
+
+.condata-chat-input-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--condata-border);
+  background: #ffffff;
+}
+
+.condata-chat-input {
+  flex: 1;
+  resize: none;
+  border-radius: var(--condata-radius-sm);
+  border: 1px solid var(--condata-border);
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  max-height: 120px;
+  outline: none;
+  transition: border-color var(--condata-transition),
+    box-shadow var(--condata-transition);
+}
+
+.condata-chat-input:focus {
+  border-color: var(--condata-blue);
+  box-shadow: 0 0 0 1px rgba(35, 101, 151, 0.12);
+}
+
+.condata-chat-send {
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    var(--condata-blue),
+    var(--condata-green)
+  );
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--condata-transition),
+    box-shadow var(--condata-transition), opacity var(--condata-transition);
+  box-shadow: 0 10px 20px rgba(35, 101, 151, 0.3);
+}
+
+.condata-chat-send:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(35, 101, 151, 0.35);
+}
+
+.condata-chat-send:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* Small screens */
+
+@media (max-width: 480px) {
+  .condata-chat-window {
+    inset-inline: 8px;
+    inset-block-end: 8px;
+    width: auto;
+    height: 75vh;
+  }
+}

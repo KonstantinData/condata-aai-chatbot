@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>condata AAI-Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Root container for floating widget -->
+    <div id="condata-chat-root" class="condata-chat-root">
+      <!-- Collapsed launcher -->
+      <button
+        id="condata-chat-launcher"
+        class="condata-chat-launcher"
+        aria-label="condata AAI-Chatbot öffnen"
+      >
+        <img
+          src="https://www.condata.io/images/logo.webp"
+          alt="condata Logo"
+          class="condata-chat-launcher-logo"
+        />
+        <span class="condata-chat-launcher-label">AI-Chat</span>
+      </button>
+
+      <!-- Expanded chat window -->
+      <div id="condata-chat-window" class="condata-chat-window">
+        <header class="condata-chat-header">
+          <div class="condata-chat-header-left">
+            <img
+              src="https://www.condata.io/images/logo.webp"
+              alt="condata Logo"
+              class="condata-chat-logo"
+            />
+            <div class="condata-chat-title-group">
+              <div class="condata-chat-title">condata AAI-Chatbot</div>
+              <div class="condata-chat-subtitle">
+                KI-Assistent für Ihre Fragen zu Daten & KI.
+              </div>
+            </div>
+          </div>
+          <button
+            id="condata-chat-close"
+            class="condata-chat-close"
+            aria-label="Chat schließen"
+          >
+            ✕
+          </button>
+        </header>
+
+        <div class="condata-chat-disclaimer">
+          Sie interagieren mit einem KI-System (condata AAI-Chatbot). Antworten
+          können Fehler enthalten und ersetzen keine individuelle Beratung.
+        </div>
+
+        <main id="condata-chat-messages" class="condata-chat-messages"></main>
+
+        <footer class="condata-chat-input-bar">
+          <textarea
+            id="condata-chat-input"
+            class="condata-chat-input"
+            rows="1"
+            placeholder="Ihre Frage an den Chatbot…"
+          ></textarea>
+          <button
+            id="condata-chat-send"
+            class="condata-chat-send"
+            aria-label="Nachricht senden"
+          >
+            ➤
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
