@@ -1,6 +1,9 @@
-/* condata AAI-Chatbot – floating widget styles */
+/* -----------------------------------------------------------
+   condata AAI-Chatbot – Floating Widget Styles
+   Production build with Mic-States + Voice-Flow styling
+------------------------------------------------------------ */
 
-/* Brand palette (aligned with condata main site) */
+/* Brand variables */
 :root {
   --condata-blue: #236597;
   --condata-green: #3d9453;
@@ -26,37 +29,36 @@ body {
   background: transparent;
 }
 
-/* Root container and general layout */
+/* -----------------------------------------------------------
+   Root Container
+------------------------------------------------------------ */
 
 .condata-chat-root {
   position: fixed;
-  inset-block-end: 80px; /* 80px über dem unteren Rand */
+  inset-block-end: 80px;
   inset-inline-end: 20px;
   z-index: 9999;
   font-family: var(--condata-font);
 }
 
-/* Collapsed launcher */
+/* -----------------------------------------------------------
+   Launcher (collapsed)
+------------------------------------------------------------ */
 
 .condata-chat-launcher {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 10px 16px;
-  border-radius: 999px;
   border: none;
-  background: linear-gradient(
-    135deg,
-    var(--condata-blue),
-    var(--condata-green)
-  );
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--condata-blue), var(--condata-green));
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--condata-shadow);
-  transition: transform var(--condata-transition),
-    box-shadow var(--condata-transition), opacity var(--condata-transition);
+  transition: transform var(--condata-transition), box-shadow var(--condata-transition), opacity var(--condata-transition);
 }
 
 .condata-chat-launcher:hover {
@@ -68,20 +70,17 @@ body {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  object-fit: contain;
   background: #ffffff;
   padding: 2px;
 }
 
-.condata-chat-launcher-label {
-  white-space: nowrap;
-}
-
-/* Expanded chat window */
+/* -----------------------------------------------------------
+   Chat Window (expanded)
+------------------------------------------------------------ */
 
 .condata-chat-window {
   position: fixed;
-  inset-block-end: 80px; /* gleiche Höhe wie Root */
+  inset-block-end: 20px;
   inset-inline-end: 20px;
   width: min(380px, 95vw);
   height: 720px;
@@ -94,11 +93,8 @@ body {
   opacity: 0;
   transform: translateY(12px) scale(0.98);
   pointer-events: none;
-  transition: opacity var(--condata-transition),
-    transform var(--condata-transition);
+  transition: opacity var(--condata-transition), transform var(--condata-transition);
 }
-
-/* When open */
 
 .condata-chat-root.is-open .condata-chat-window {
   opacity: 1;
@@ -111,7 +107,9 @@ body {
   pointer-events: none;
 }
 
-/* Header */
+/* -----------------------------------------------------------
+   Header
+------------------------------------------------------------ */
 
 .condata-chat-header {
   display: flex;
@@ -129,18 +127,11 @@ body {
 }
 
 .condata-chat-logo {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
-  object-fit: contain;
   background: #ffffff;
   padding: 3px;
-}
-
-.condata-chat-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
 }
 
 .condata-chat-title {
@@ -153,6 +144,33 @@ body {
   color: #d1d5db;
 }
 
+/* Language Toggle */
+.condata-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px;
+  border-radius: 999px;
+}
+
+.condata-lang-toggle button {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.condata-lang-toggle button.active {
+  background: #ffffff;
+  color: #111827;
+}
+
+/* Close Button */
 .condata-chat-close {
   border: none;
   background: transparent;
@@ -161,16 +179,15 @@ body {
   cursor: pointer;
   padding: 4px 6px;
   border-radius: 999px;
-  transition: background var(--condata-transition),
-    color var(--condata-transition);
 }
 
 .condata-chat-close:hover {
-  background: rgba(148, 163, 184, 0.2);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
 }
 
-/* Disclaimer */
+/* -----------------------------------------------------------
+   Disclaimer
+------------------------------------------------------------ */
 
 .condata-chat-disclaimer {
   padding: 8px 12px;
@@ -180,7 +197,9 @@ body {
   border-bottom: 1px solid var(--condata-border);
 }
 
-/* Messages */
+/* -----------------------------------------------------------
+   Messages
+------------------------------------------------------------ */
 
 .condata-chat-messages {
   flex: 1;
@@ -192,15 +211,12 @@ body {
   gap: 8px;
 }
 
-/* Message bubbles */
-
 .condata-msg {
   max-width: 85%;
   padding: 8px 10px;
   border-radius: 12px;
   font-size: 13px;
   line-height: 1.4;
-  word-wrap: break-word;
   white-space: pre-wrap;
 }
 
@@ -225,7 +241,9 @@ body {
   padding: 2px;
 }
 
-/* Input bar */
+/* -----------------------------------------------------------
+   Input Bar
+------------------------------------------------------------ */
 
 .condata-chat-input-bar {
   display: flex;
@@ -244,25 +262,59 @@ body {
   padding: 8px 10px;
   font-size: 13px;
   line-height: 1.4;
-  max-height: 120px;
   outline: none;
-  transition: border-color var(--condata-transition),
-    box-shadow var(--condata-transition);
 }
 
 .condata-chat-input:focus {
   border-color: var(--condata-blue);
-  box-shadow: 0 0 0 1px rgba(35, 101, 151, 0.12);
 }
+
+/* -----------------------------------------------------------
+   Microphone Button
+------------------------------------------------------------ */
+
+.condata-chat-mic {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+/* Mic OFF */
+.condata-chat-mic.off {
+  color: #6b7280;
+}
+
+/* Mic ON */
+.condata-chat-mic.on {
+  color: #16a34a;
+}
+
+/* Mic actively recording */
+.condata-chat-mic.recording {
+  color: #dc2626;
+  animation: condata-mic-pulse 1s infinite;
+}
+
+@keyframes condata-mic-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: 0.75; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* -----------------------------------------------------------
+   Send Button
+------------------------------------------------------------ */
 
 .condata-chat-send {
   border: none;
   border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    var(--condata-blue),
-    var(--condata-green)
-  );
+  background: linear-gradient(135deg, var(--condata-blue), var(--condata-green));
   color: #ffffff;
   width: 40px;
   height: 40px;
@@ -271,9 +323,8 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform var(--condata-transition),
-    box-shadow var(--condata-transition), opacity var(--condata-transition);
   box-shadow: 0 10px 20px rgba(35, 101, 151, 0.3);
+  transition: transform var(--condata-transition), box-shadow var(--condata-transition);
 }
 
 .condata-chat-send:hover {
@@ -287,87 +338,7 @@ body {
   box-shadow: none;
 }
 
-/* Language toggle */
-
-.condata-lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(15, 23, 42, 0.45);
-  padding: 2px;
-  border-radius: 999px;
-}
-
-.condata-lang-toggle button {
-  border: none;
-  background: transparent;
-  color: #d1d5db;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.condata-lang-toggle button.active {
-  background: #f9fafb;
-  color: #111827;
-}
-
-/* Voice toggle (🔊) in header */
-
-.condata-voice-toggle {
-  border: none;
-  background: transparent;
-  color: #d1d5db;
-  font-size: 14px;
-  margin-right: 6px;
-  cursor: pointer;
-  border-radius: 999px;
-  padding: 4px 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background var(--condata-transition),
-    color var(--condata-transition), transform var(--condata-transition);
-}
-
-.condata-voice-toggle.active {
-  color: #facc15; /* gelblich, wenn Voice aktiv ist */
-}
-
-.condata-voice-toggle:hover {
-  background: rgba(148, 163, 184, 0.2);
-  transform: translateY(-1px);
-}
-
-/* Mic button in input bar */
-
-.condata-chat-mic {
-  border: none;
-  background: transparent;
-  margin-right: 6px;
-  font-size: 18px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  color: #4b5563;
-  transition: color 0.15s ease, transform 0.15s ease;
-}
-
-.condata-chat-mic:hover {
-  color: #111827;
-  transform: translateY(-1px);
-}
-
-.condata-chat-mic.recording {
-  color: #dc2626;
-}
-
-/* Small screens */
-
+/* Mobile adjustments */
 @media (max-width: 480px) {
   .condata-chat-window {
     inset-inline: 8px;
